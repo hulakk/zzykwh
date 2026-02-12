@@ -241,16 +241,29 @@
         @media (max-width: 768px) {
             header {
                 text-align: center;
-                padding: 20px 15px; /* 可选：调整内边距以适应小屏幕 */
+                padding: 20px 15px !important; /* 使用 !important 确保覆盖 */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
-        
+            
             h1 {
+                /* 重置可能影响布局的背景属性 */
+                background: linear-gradient(90deg, #e91e63, #ff4081) !important;
+                -webkit-background-clip: initial !important;
+                background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                color: #e91e63 !important; /* 设置一个纯色作为fallback */
+                
+                /* 确保布局属性 */
                 display: block;
-                width: fit-content; /* 或 100% */
-                margin-left: auto;
-                margin-right: auto;
-                font-size: 2.2rem; /* 此处已有，确保字体大小适应 */
-                word-wrap: break-word; /* 防止长标题溢出 */
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
             }
 
             .timeline::before {
