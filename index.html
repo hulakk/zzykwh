@@ -423,8 +423,9 @@
         <div class="timeline-end"></div>
         
         <footer>
-            <p>时间轴由 ❤️ 精心制作 | 每一个瞬间都是我们爱的见证</p>
-            <p>最后更新: <span id="currentDate"></span></p>
+            <p>加密内容：我的小号微信号</p>
+            <p>密钥：zzy260112</p>
+            <p>解密链接：<a href="https://www.bejson.com/encrypt/rc4/" target="_blank">RC4在线加解密工具</a>（输入和输出都选base64）</p>
         </footer>
     </div>
 
@@ -538,12 +539,12 @@
 
     // 初始化页面
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('zh-CN', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            weekday: 'long'
-        });
+        // document.getElementById('currentDate').textContent = new Date().toLocaleDateString('zh-CN', { 
+        //     year: 'numeric', 
+        //     month: 'long', 
+        //     day: 'numeric',
+        //     weekday: 'long'
+        // });
         
         // 改为先加载数据，再绑定按钮事件
         loadTimelineData().then(() => {
