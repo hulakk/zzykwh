@@ -1,0 +1,60 @@
+{
+  "timelineEvents": [
+    {
+      "date": "2026年1月12日",
+      "title": "初次相遇",
+      "description": "本打算去操场吹冷风，可那天一点风都没有。",
+      "image": "./images/初识那日的操场.jpg",
+      "side": "left"
+    },
+    {
+      "date": "2026年1月13日",
+      "title": "第一次一起去图书馆",
+      "description": "我睡了懒觉，下午才来图书馆。",
+      "image": "",
+      "side": "left"
+    },
+    {
+      "date": "2026年1月15日",
+      "title": "第一次深入交流",
+      "description": "那天上午，我们聊了恋爱观、对伴侣的要求、个人兴趣等诸多方面。",
+      "image": "",
+      "side": "left"
+    },
+    {
+      "date": "2026年1月17日",
+      "title": "第一次一起出去玩。",
+      "description": "蜀西湖真是好玩呀~这天也聊了很深刻的话题。",
+      "image": "./images/蜀西湖单人照.jpg",
+      "side": "left"
+    },
+    {
+      "date": "2026年1月20日",
+      "title": "下雪了",
+      "description": "第一次一起坐校车，晚上回去后还出来说了许多话。",
+      "image": "",
+      "side": "right"
+    },
+    {
+      "date": "2026年1月21日",
+      "title": "告白",
+      "description": "愿我如星君如月，夜夜流光相皎洁。  ——范成大",
+      "image": "./images/告白.jpg",
+      "side": "right"
+    },
+    {
+      "date": "2026年1月24日",
+      "title": "大蜀山&看电影",
+      "description": "爬个山而已，我才没那么容易累呢！！！",
+      "image": "./images/大蜀山合照.jpg",
+      "side": "right"
+    },
+    {
+      "date": "2026年1月29-31日",
+      "title": "一起去北京",
+      "description": "某人买错了票，还弄丢了身份证，但愿是个靠谱的人吧。",
+      "image": "./images/天安门合照.jpg",
+      "side": "left"
+    }
+  ]
+}

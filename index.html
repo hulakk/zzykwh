@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>朱紫仪 & 康文豪 恋爱时间轴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #fce4ec 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #e91e63;
+            margin-bottom: 10px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #e91e63, #ff4081);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 时间轴样式 */
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+        }
+        
+        /* 时间轴主线 */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #e91e63, #ff4081);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+        }
+        
+        /* 时间轴项 */
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 100px;
+            position: relative;
+            width: 100%;
+        }
+        
+        /* 时间轴节点 */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border: 6px solid #ff4081;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.5);
+        }
+        
+        /* 事件卡片 */
+        .event-card {
+            width: 45%;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* 左侧卡片 */
+        .timeline-item.left .event-card {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        
+        /* 右侧卡片 */
+        .timeline-item.right .event-card {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        
+        /* 时间轴连接线 - 完全重写 */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            height: 3px;
+            background: linear-gradient(to right, #ff80ab, #ff4081);
+            z-index: 1;
+        }
+        
+        /* 左侧卡片的连接线 - 精确从节点边缘到卡片右侧边缘 */
+        .timeline-item.left::before {
+            /* 起始点：从节点左侧边缘开始 */
+            right: 50%;
+            /* 宽度：从节点边缘到卡片右侧边缘的距离 */
+            /* 节点半径12px + 卡片到轴线的间距 */
+            width: calc(5%);
+            background: linear-gradient(to left, #ff80ab, #ff4081);
+        }
+        
+        /* 右侧卡片的连接线 - 精确从节点边缘到卡片左侧边缘 */
+        .timeline-item.right::before {
+            /* 起始点：从节点右侧边缘开始 */
+            left: 50%;
+            /* 宽度：从节点边缘到卡片左侧边缘的距离 */
+            /* 节点半径12px + 卡片到轴线的间距 */
+            width: calc(5%);
+            background: linear-gradient(to right, #ff80ab, #ff4081);
+        }
+        
+        /* 卡片内容样式 */
+        .event-date {
+            font-size: 1.1rem;
+            color: #ff4081;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-date i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .event-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .event-description {
+            color: #555;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+        
+        /* 图片容器 */
+        .event-image {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+            max-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            min-height: 150px;
+            position: relative;
+        }
+        
+        .event-image img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+            margin: 0 auto;
+        }
+        
+        .event-image img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 无图片时的样式 */
+        .event-image.no-image {
+            background: linear-gradient(135deg, #f8bbd9 0%, #fce4ec 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e91e63;
+            font-size: 1.2rem;
+        }
+        
+        .image-placeholder {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item::after {
+                left: 30px;
+            }
+            
+            .timeline-item::before {
+                display: none;
+            }
+            
+            .event-card {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                margin-right: 0 !important;
+            }
+            
+            .timeline-item.left .event-card,
+            .timeline-item.right .event-card {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .event-card {
+                padding: 20px;
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .event-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .heart {
+            color: #ff4081;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #e91e63;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff4081;
+            color: #ff4081;
+        }
+        
+        .btn-outline:hover {
+            background: #ff4081;
+            color: white;
+        }
+        
+        /* 时间轴结束标记 */
+        .timeline-end {
+            position: relative;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .timeline-end::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #ff4081;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.5);
+        }
+        
+        .timeline-end::after {
+            content: '未完待续...';
+            position: absolute;
+            left: 50%;
+            top: 25px;
+            transform: translateX(-50%);
+            color: #ff4081;
+            font-weight: 600;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heart heart"></i> 朱紫仪 & 康文豪 <i class="fas fa-heart heart"></i></h1>
+            <p class="subtitle">记录我们一起走过的美好时光，每一个瞬间都值得珍藏</p>
+        </header>
+        
+        <div class="controls">
+            <!-- <button class="btn" id="addEventBtn">
+                <i class="fas fa-plus"></i> 添加新事件
+            </button> -->
+            <button class="btn btn-outline" id="toggleViewBtn">
+                <i class="fas fa-eye-slash"></i> 隐藏图片
+            </button>
+            <!-- <button class="btn btn-outline" id="toggleSideBtn">
+                <i class="fas fa-exchange-alt"></i> 交替布局
+            </button> -->
+        </div>
+        
+        <div class="timeline">
+            <!-- 时间轴内容将由JavaScript动态生成 -->
+        </div>
+        
+        <div class="timeline-end"></div>
+        
+        <footer>
+            <p>时间轴由 ❤️ 精心制作 | 每一个瞬间都是我们爱的见证</p>
+            <p>最后更新: <span id="currentDate"></span></p>
+        </footer>
+    </div>
+
+    <script>
+    // 全局变量声明
+    let timelineEvents = []; // 数据将从外部文件加载
+    let showImages = true;
+    let useAlternatingLayout = true;
+
+    // 生成时间轴HTML的函数（保持不变）
+    function renderTimeline() {
+        const timelineContainer = document.querySelector('.timeline');
+        timelineContainer.innerHTML = '';
+        
+        timelineEvents.forEach((event, index) => {
+            const timelineItem = document.createElement('div');
+            let sideClass = '';
+            
+            if (useAlternatingLayout) {
+                sideClass = index % 2 === 0 ? 'left' : 'right';
+            } else {
+                sideClass = event.side || (index % 2 === 0 ? 'left' : 'right');
+            }
+            
+            timelineItem.className = `timeline-item ${sideClass}`;
+            
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card';
+            
+            let imageHtml = '';
+            if (event.image && showImages) {
+                imageHtml = `
+                    <div class="event-image">
+                        <img src="${event.image}" alt="${event.title}" onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><i class=\'fas fa-heart\'></i><p>最美的记忆留在心里</p></div>'; this.parentElement.className=\'event-image no-image\'">
+                    </div>
+                `;
+            } else if (!event.image && showImages) {
+                imageHtml = `
+                    <div class="event-image no-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-heart"></i>
+                            <p>最美的记忆留在心里</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            eventCard.innerHTML = `
+                <div class="event-date">
+                    <i class="fas fa-calendar-alt"></i> ${event.date}
+                </div>
+                <h3 class="event-title">${event.title}</h3>
+                <p class="event-description">${event.description}</p>
+                ${imageHtml}
+            `;
+            
+            timelineItem.appendChild(eventCard);
+            timelineContainer.appendChild(timelineItem);
+        });
+    }
+
+    // 新增：从data.json文件加载数据的函数
+    async function loadTimelineData() {
+        try {
+            const response = await fetch('data.json'); // 确保data.json与index.html在同一目录
+            if (!response.ok) {
+                throw new Error(`网络响应错误: ${response.status}`);
+            }
+            const data = await response.json();
+            timelineEvents = data.timelineEvents; // 将加载的数据赋值给全局变量
+            renderTimeline(); // 数据加载成功后渲染时间轴
+        } catch (error) {
+            console.error('加载时间轴数据失败:', error);
+            // 可以在这里添加用户友好的错误提示，例如：
+            document.querySelector('.timeline').innerHTML = `<p style="text-align:center; color:#e91e63;">加载数据失败，请检查data.json文件。</p>`;
+        }
+    }
+
+    // 其他功能函数（保持不变）
+    function addNewEvent() {
+        const newEvent = {
+            date: new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }),
+            title: "新的美好时刻",
+            description: "这是我们最新创造的回忆，每一天都因为有你而变得更加美好。",
+            image: "",
+            side: timelineEvents.length % 2 === 0 ? "left" : "right"
+        };
+        
+        timelineEvents.push(newEvent);
+        renderTimeline();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function toggleImages() {
+        showImages = !showImages;
+        renderTimeline();
+        const toggleBtn = document.getElementById('toggleViewBtn');
+        toggleBtn.innerHTML = showImages ? 
+            '<i class="fas fa-eye-slash"></i> 隐藏图片' : 
+            '<i class="fas fa-eye"></i> 显示图片';
+    }
+
+    function toggleLayout() {
+        useAlternatingLayout = !useAlternatingLayout;
+        renderTimeline();
+        const toggleBtn = document.getElementById('toggleSideBtn');
+        toggleBtn.innerHTML = useAlternatingLayout ? 
+            '<i class="fas fa-exchange-alt"></i> 交替布局' : 
+            '<i class="fas fa-random"></i> 指定布局';
+    }
+
+    // 初始化页面
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('zh-CN', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            weekday: 'long'
+        });
+        
+        // 改为先加载数据，再绑定按钮事件
+        loadTimelineData().then(() => {
+            // 数据加载并渲染完成后，再为按钮添加事件监听
+            // document.getElementById('addEventBtn').addEventListener('click', addNewEvent);
+            document.getElementById('toggleViewBtn').addEventListener('click', toggleImages);
+            // document.getElementById('toggleSideBtn').addEventListener('click', toggleLayout);
+        });
+    });
+    </script>
+</body>
+</html>
