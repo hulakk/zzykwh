@@ -239,6 +239,20 @@
         
         /* 响应式设计 */
         @media (max-width: 768px) {
+            header {
+                text-align: center;
+                padding: 20px 15px; /* 可选：调整内边距以适应小屏幕 */
+            }
+        
+            h1 {
+                display: block;
+                width: fit-content; /* 或 100% */
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 2.2rem; /* 此处已有，确保字体大小适应 */
+                word-wrap: break-word; /* 防止长标题溢出 */
+            }
+
             .timeline::before {
                 left: 30px;
             }
